@@ -1,0 +1,16 @@
+```mermaid
+sequenceDiagram
+    participant App as Application
+    participant Client as HSM Client
+    participant HSM as CloudHSM
+    participant Audit as Audit Log
+
+    App->>Client: Crypto request
+    Client->>HSM: Authenticate
+    HSM-->>Client: Session established
+    Client->>HSM: Perform operation
+    HSM->>HSM: Execute in hardware
+    HSM->>Audit: Log operation
+    HSM-->>Client: Return result
+    Client-->>App: Crypto result
+```

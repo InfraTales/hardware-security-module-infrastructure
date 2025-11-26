@@ -1,0 +1,37 @@
+```mermaid
+graph TD
+    subgraph Apps["Applications"]
+        App1[Application 1]
+        App2[Application 2]
+        KMS[AWS KMS]
+    end
+
+    subgraph HSMCluster["CloudHSM Cluster"]
+        HSM1[HSM AZ-1]
+        HSM2[HSM AZ-2]
+    end
+
+    subgraph Network["Network"]
+        ENI1[ENI AZ-1]
+        ENI2[ENI AZ-2]
+        VPC[Private VPC]
+    end
+
+    subgraph Mgmt["Management"]
+        Client[HSM Client]
+        Audit[Audit Logs]
+        Backup[Key Backup]
+    end
+
+    App1 --> ENI1
+    App2 --> ENI2
+    KMS --> ENI1
+    ENI1 --> HSM1
+    ENI2 --> HSM2
+    HSM1 <--> HSM2
+    VPC --> ENI1
+    VPC --> ENI2
+    Client --> HSM1
+    HSM1 --> Audit
+    HSM1 --> Backup
+```

@@ -1,0 +1,27 @@
+```mermaid
+graph LR
+    subgraph Request["Crypto Request"]
+        App[Application]
+        SDK[PKCS#11/JCE]
+    end
+
+    subgraph HSM["HSM Processing"]
+        Auth[Authentication]
+        Crypto[Crypto Engine]
+        Keys[Key Store]
+    end
+
+    subgraph Output["Output"]
+        Result[Crypto Result]
+        Logs[Audit Logs]
+    end
+
+    App --> SDK
+    SDK --> Auth
+    Auth --> Crypto
+    Crypto --> Keys
+    Keys --> Crypto
+    Crypto --> Result
+    Crypto --> Logs
+    Result --> App
+```
